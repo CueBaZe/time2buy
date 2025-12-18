@@ -7,7 +7,7 @@ export default function TabsLayout() {
     return (
         <Tabs screenOptions={{tabBarStyle: {backgroundColor: '#ecececff'} ,tabBarActiveTintColor: "#8ceb11ff", tabBarInactiveTintColor: '#bebebeff' }}>
             <Tabs.Screen 
-                name="index" 
+                name="dashboard" 
                 options={{ 
                     headerShown: false, 
                     tabBarLabel: "Dashboard", 
