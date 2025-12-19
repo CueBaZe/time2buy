@@ -3,7 +3,7 @@ import { Text, View, TextInput } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { Link } from 'expo-router';
 
-export default function Login() {
+export default function Register() {
 
     const [isChecked, setChecked] = useState(false);
 
@@ -16,8 +16,14 @@ export default function Login() {
 
             <View className='flex-1 items-center justify-center gap-[50px]'>
                 <TextInput className='text-white text-xl text-center w-[250px] border border-2 border-[#BEBEBE] rounded-lg' 
-                    placeholder='Username or Email' 
+                    placeholder='Username' 
                     id='username' 
+                    placeholderTextColor="#ffffff">
+                </TextInput>
+
+                <TextInput className='text-white text-xl text-center w-[250px] border border-2 border-[#BEBEBE] rounded-lg' 
+                    placeholder='Email' 
+                    id='email' 
                     placeholderTextColor="#ffffff">
                 </TextInput>
 
@@ -33,14 +39,14 @@ export default function Login() {
                         onValueChange={setChecked}
                         color={isChecked ? '#4630EB' : undefined}
                     />
-                    <Text className='text-white'>Remember me</Text>
+                    <Text className='text-white'>Accept <Link href={'terms'} className='underline'>Terms and Conditions</Link></Text>
                 </View>
 
-                <Text className='bg-[#8CEB11] text-white text-2xl font-bold rounded-lg p-2' id='loginBtn'>Login</Text>
+                <Text className='bg-[#8CEB11] text-white text-2xl font-bold rounded-lg p-2' id='loginBtn'>Register</Text>
 
                 <View className='items-center gap-2'>
-                    <Text className='text-white'>Dont have an account?</Text>
-                    <Link href="register" className='text-blue-400 font-bold underline'>Register here</Link>
+                    <Text className='text-white'>have an account?</Text>
+                    <Link href="login" className='text-blue-400 font-bold underline'>Login here</Link>
                 </View>
 
             </View>
