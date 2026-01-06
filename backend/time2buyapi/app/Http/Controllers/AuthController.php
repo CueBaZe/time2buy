@@ -15,10 +15,9 @@ class AuthController extends Controller
         ]);
 
         //check if the login infomation is correct (user or email matches the password).
-        $passwordHashed = Hash::make($request->password);
-        $user = DB::table('users')->where('name', $request->name OR 'email', $request->name)->where('password', $passwordHashed)->first();
+        $user = DB::table('users')->Where('name', $request->name)->orWhere('email', $request->name)->first();
 
-        if ($user) { //return success message and status code
+        if ($user && Hash::check($request->password, $user->password)) { //return success message and status code
             return response()->json([
                 'success' => true,
                 'message' => 'User logged in',
