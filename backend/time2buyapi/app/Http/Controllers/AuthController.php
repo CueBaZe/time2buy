@@ -33,14 +33,6 @@ class AuthController extends Controller
         }
     }
 
-    public function logout() { //function to logout the user
-        //check if the user has an active session. If not retrun error message and status code (404)
-
-        //remove the active session
-
-        //return success message and status code (200)
-    }
-
     public function register(Request $request) { //function to let the user create an account
 
         //validate the data
