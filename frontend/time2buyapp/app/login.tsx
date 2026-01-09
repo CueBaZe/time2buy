@@ -56,13 +56,11 @@ export default function Login() {
                 <Text className='text-white text-lg'>See the clock behind the price tag.</Text>
             </View>
 
-            <View className='mt-[50px] border bg-[#282829] p-2 rounded-2xl' id='errorBox'>
-                {generalError && (
-                    <Text id='ErrorText' className='text-white text-md'><Ionicons name="information-circle" size={18} color="red" />{generalError}</Text>
-                )}
+            <View className={`mt-[50px] border bg-[#282829] p-2 rounded-2xl ${generalError ? '' : 'invisible'}`} id='errorBox'>
+                <Text id='ErrorText' className={`text-white text-md`}><Ionicons name="information-circle" size={18} color="red" />{generalError ? generalError : ''}</Text>
             </View>
 
-            <View className='flex-1 items-center text-center justify-center gap-[50px]'>
+            <View className='flex-1 items-center text-center justify-center gap-[30px]'>
                 <View className='items-center'>
                     <TextInput className={`text-white text-xl text-center w-[250px] border border-2 border-[#BEBEBE] rounded-lg ${errors.name ? 'border-red-500' : ''}`}
                         placeholder='Username or Email' 
@@ -71,9 +69,8 @@ export default function Login() {
                         onChangeText={setName} 
                         placeholderTextColor="#ffffff">
                     </TextInput>
-                    {errors.name && (
-                        <Text className='text-red-500 mt-2'>{errors.name[0]}</Text>
-                    )}
+
+                    <Text className='text-red-500 mt-2'>{errors.name ? errors.name[0] : ''}</Text>
                 </View>
                 
                 <View className='items-center '>
@@ -85,9 +82,7 @@ export default function Login() {
                         placeholderTextColor="#ffffff">
                     </TextInput>
 
-                    {errors.password && (
-                        <Text className='text-red-500 mt-2'>{errors.password[0]}</Text>
-                    )}
+                    <Text className='text-red-500 mt-2'>{errors.password ? errors.password[0] : ''}</Text>
 
                 </View>
 

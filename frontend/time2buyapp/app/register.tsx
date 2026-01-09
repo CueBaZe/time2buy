@@ -59,10 +59,8 @@ export default function Register() {
                 <Text className='text-white text-lg'>See the clock behind the price tag.</Text>
             </View>
 
-            <View className='mt-[25px] border bg-[#282829] p-2 rounded-2xl' id='errorBox'>
-                {generalError && (
-                    <Text id='ErrorText' className='text-white text-md'><Ionicons name="information-circle" size={18} color="red" /></Text>
-                )}
+            <View className={`mt-[50px] border bg-[#282829] p-2 rounded-2xl ${generalError ? '' : 'invisible'}`} id='errorBox'>
+                <Text id='ErrorText' className={`text-white text-md`}><Ionicons name="information-circle" size={18} color="red" />{generalError ? generalError : ''}</Text>
             </View>
 
             <View className='flex-1 items-center  justify-center gap-[30px]'>
