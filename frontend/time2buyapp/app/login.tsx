@@ -1,6 +1,5 @@
-import React, { use, useState } from 'react';
+import React, { useState } from 'react';
 import { Text, View, TextInput } from 'react-native';
-import Checkbox from 'expo-checkbox';
 import { Link, useRouter } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { fetch } from 'expo/fetch';
@@ -8,7 +7,6 @@ import * as SecureStore from 'expo-secure-store';
 
 export default function Login() {
 
-    const [isChecked, setChecked] = useState(false);
     const [name, setName] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [errors, setErrors] = useState<any>({});
