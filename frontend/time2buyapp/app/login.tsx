@@ -92,15 +92,6 @@ export default function Login() {
 
                 </View>
 
-                <View className='flex-2 flex-row gap-3'>
-                    <Checkbox
-                        value={isChecked}
-                        onValueChange={setChecked}
-                        color={isChecked ? '#4630EB' : undefined}
-                    />
-                    <Text className='text-white'>Remember me</Text>
-                </View>
-
                 <Text className='bg-[#8CEB11] text-white text-2xl font-bold rounded-lg p-2' id='loginBtn' onPress={HandleLogin}>Login</Text>
 
                 <View className='items-center gap-2'>
