@@ -116,6 +116,7 @@ export default function Register() {
                         id='password' 
                         value={password}
                         onChangeText={setPassword} 
+                        secureTextEntry
                         placeholderTextColor="#ffffff">
                     </TextInput>
 
@@ -128,6 +129,7 @@ export default function Register() {
                         id='passwordconfirm' 
                         value={confirm}
                         onChangeText={setConfirm} 
+                        secureTextEntry
                         placeholderTextColor="#ffffff">
                     </TextInput>
 

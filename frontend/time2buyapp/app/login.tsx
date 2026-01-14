@@ -79,6 +79,7 @@ export default function Login() {
                         id='password' 
                         value={password}
                         onChangeText={setPassword}
+                        secureTextEntry
                         placeholderTextColor="#ffffff">
                     </TextInput>
 
