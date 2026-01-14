@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { useRouter } from 'expo-router';
 
@@ -39,10 +39,20 @@ export default function Dashboard() {
         fetchUserData();
     }, []);
 
+    const HandleLogout = async () => {
+        if (userData) {
+            setUserData(null);
+            SecureStore.deleteItemAsync('userId');
+            SecureStore.deleteItemAsync('userToken');
+            router.replace('/login');
+        }
+    }
+
     return (
         <View className='flex-1 items-center justify-center bg-[#1A1A1B]'>
             <Text className='text-3xl text-white'>This is the dashboard</Text>
-            <Text className='text-xl text-white'>Hello {userData ? userData.name : 'Loading...'}</Text>
+            <Text className='text-xl text-white'>Welcome {userData ? userData.name : 'Loading...'}</Text>
+            <Text className='text-lg text-white font-bold bg-red-500 rounded-lg p-2 mt-4' onPress={HandleLogout}>Logout</Text>
         </View>
     );
 }
