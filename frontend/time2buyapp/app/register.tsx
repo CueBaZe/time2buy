@@ -3,7 +3,6 @@ import { Text, View, TextInput } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { Link } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
-
 export default function Register() {
 
     const [isChecked, setChecked] = useState(false);
@@ -13,11 +12,14 @@ export default function Register() {
     const [confirm, setConfirm] = useState<string>('');
     const [errors, setErrors] = useState<any>({});
     const [generalError, setGenerealError] = useState<string>('');
+    const [success, setSuccess] = useState<string>('');
+
 
     const HandleRegister = async () =>  {
 
         setErrors({});
         setGenerealError('');
+        setSuccess('');
 
         if(isChecked !== true) {
             setGenerealError('Please accept the terms and conditions.');
@@ -51,8 +53,12 @@ export default function Register() {
                 return; 
             }
 
-            console.log('User created', data)
-            //login the user
+            setSuccess('User created successfully');
+            setName('');
+            setEmail('');
+            setPassword('');
+            setConfirm('');
+            setChecked(false);
 
         } catch (networkErrors) {
             setGenerealError('Server Error:' + networkErrors);
@@ -66,8 +72,15 @@ export default function Register() {
                 <Text className='text-white text-lg'>See the clock behind the price tag.</Text>
             </View>
 
-            <View className={`mt-[50px] border bg-[#282829] p-2 rounded-2xl ${generalError ? '' : 'invisible'}`} id='errorBox'>
-                <Text id='ErrorText' className={`text-white text-md`}><Ionicons name="information-circle" size={18} color="red" />{generalError ? generalError : ''}</Text>
+            <View className={`mt-[50px] border bg-[#282829] p-2 rounded-2xl ${(generalError || success)  ? '' : 'invisible'}`} id='infomationbox'>
+                {generalError && (
+                    <Text id='ErrorText' className={`text-white text-md`}><Ionicons name="information-circle" size={18} color="red" />{generalError ? generalError : ''}</Text>
+                )}
+
+                {success && (
+                    <Text id='SuccessText' className={`text-white text-md ${success ? '' : 'invisible'}`}><Ionicons name="checkmark-circle" size={18} color="green" />{success ? success : ''}</Text>
+                )}
+
             </View>
 
             <View className='flex-1 items-center  justify-center gap-[30px]'>
