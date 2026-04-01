@@ -9,10 +9,9 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function fetchUserData(Request $request, $id) {
+    public function fetchUserData(Request $request) {
         $token = $request->bearerToken();
         $user = DB::table('users')
-            ->where('id', $id)
             ->where('token', $token)
             ->first();
         if (!$user) {

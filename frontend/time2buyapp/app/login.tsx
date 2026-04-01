@@ -43,7 +43,6 @@ export default function Login() {
             }
 
             await SecureStore.setItemAsync('userToken', String(data.userToken));
-            await SecureStore.setItemAsync('userId', String(data.userId));
             
             router.replace('/dashboard')
 
