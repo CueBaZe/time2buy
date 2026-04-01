@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "expo": "^54.0.29",
+    "expo-checkbox": "~5.0.8",
     "expo-constants": "~18.0.12",
     "expo-linking": "~8.0.10",
     "expo-router": "~6.0.19",
+    "expo-secure-store": "~15.0.8",
     "expo-status-bar": "~3.0.9",
     "nativewind": "latest",
     "react": "19.1.0",
