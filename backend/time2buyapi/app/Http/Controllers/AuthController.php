@@ -3,17 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Services\AuthService;
 
 class AuthController extends Controller
 {
+
+    protected $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     public function fetchUserData(Request $request) {
-        $token = $request->bearerToken();
-        $user = DB::table('users')
-            ->where('token', $token)
-            ->first();
+
+        $user = $this->authService->getUserByToken($request->bearerToken());
+
         if (!$user) {
             return response()->json([
                 'success' => false,
@@ -30,22 +37,21 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        //check if the login infomation is correct (user or email matches the password).
-        $user = DB::table('users')->Where('name', $request->name)->orWhere('email', $request->name)->first();
+        $user = $this->authService->attemptLogin($request->name, $request->password);
 
-        if ($user && Hash::check($request->password, $user->password)) { //return success message and status code
-            return response()->json([
-                'success' => true,
-                'message' => 'User logged in',
-                'userId' => $user->id,
-                'userToken' => $user->token,
-            ], 200);
-        } else { // If not return error message and status code (403)
+        if (!$user) {
             return response()->json([
                 'success' => false,
-                'message' => 'The provided credentials do not match our records.',
-            ], 401);
+                'message' => 'Unauthorized',
+            ]);
         }
+
+        return response()->json([
+            'success' => true,
+            'userId' => $user->id,
+            'userToken' => $user->token,
+        ], 200);
+
     }
 
     public function register(Request $request) { //function to let the user create an account
@@ -61,16 +67,7 @@ class AuthController extends Controller
             'passwordconfirm.same' => 'This field must match the password field',
         ]);
 
-        $hashedPassword = Hash::make($request->password);
-        $token = $this->generateUserToken();
-
-        //add the new account data into the user table
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $hashedPassword,
-            'token' => $token,
-        ]);
+        $user = $this->authService->registerUser($request->all());
 
         //return success message and status code (200)
         return response()->json([
@@ -81,25 +78,21 @@ class AuthController extends Controller
     }
 
     public function deleteUser(Request $request) { //function to delete a user
-        $token = $request->bearerToken();
-        $user = User::where('token', $token)->first();
-        if (!$user) {
+
+        $deleted = $this->authService->deleteUserByToken($request->bearerToken());
+
+        if (!$deleted) {
             return response()->json([
                 'success' => false,
                 'message' => 'Could not find user',
             ]);
-        } else {
-            $user->delete();
-            return response()->json([
-                'success' => true,
-                'message' => 'User deleted'
-            ]);
         }
         
+        return response()->json([
+            'success' => true,
+            'message' => 'User deleted'
+        ]);
+        
 
-    }
-
-    private function generateUserToken() {
-        return str()->random(12);
     }
 }
