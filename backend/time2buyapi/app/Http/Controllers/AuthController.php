@@ -80,6 +80,25 @@ class AuthController extends Controller
 
     }
 
+    public function deleteUser(Request $request) { //function to delete a user
+        $token = $request->bearerToken();
+        $user = User::where('token', $token)->first();
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Could not find user',
+            ]);
+        } else {
+            $user->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'User deleted'
+            ]);
+        }
+        
+
+    }
+
     private function generateUserToken() {
         return str()->random(12);
     }

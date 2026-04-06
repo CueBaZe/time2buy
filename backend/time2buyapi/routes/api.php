@@ -7,3 +7,7 @@ use App\Http\Controllers\AuthController;
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/fetchUserData', [AuthController::class, 'fetchUserData']);
+
+Route::middleware('user.token')->group(function () {
+    Route::delete('/deleteUser', [AuthController::class, 'deleteUser']);
+});
